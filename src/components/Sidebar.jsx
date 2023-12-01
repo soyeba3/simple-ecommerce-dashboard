@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import { sidebarItems } from "../data";
@@ -5,9 +6,20 @@ import Button from "./buttons/Button";
 import logo from "/images/logo.png";
 
 function Sidebar({ children }) {
+  const [route, setRoute] = useState();
   const { pathname } = useLocation();
   const pathArray = location.pathname.split("");
   const routeName = pathname.slice(1, pathArray.length);
+
+  useEffect(() => {
+    if (pathname === "/") {
+      setRoute("products");
+    } else {
+      setRoute(routeName);
+    }
+  }, [routeName]);
+
+  console.log(route);
 
   return (
     <div className="flex min-h-screen font-Inter">
@@ -27,7 +39,7 @@ function Sidebar({ children }) {
                 to={item.href}
                 key={item.id}
                 className={`flex justify-between items-center px-8 py-2 ${
-                  routeName === item.name.toLocaleLowerCase()
+                  route === item.name.toLocaleLowerCase()
                     ? "bg-primary-50 border-l-4 border-primary-600"
                     : ""
                 }`}
