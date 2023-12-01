@@ -17,7 +17,7 @@ function Button({
 
   const variants = {
     primary:
-      "h-fit bg-primary-500 rounded-md hover:opacity-90 text-white focus:outline-none",
+      "h-fit bg-primary-600 rounded-md hover:opacity-90 text-white focus:outline-none",
     outline: "h-fit border border-primary-500 rounded-md focus:outline-none",
   };
 

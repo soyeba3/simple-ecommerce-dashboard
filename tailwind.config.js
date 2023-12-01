@@ -5,8 +5,10 @@ export default {
     extend: {
       fontFamily: {
         Audiowide: ["Audiowide", "sans-serif"],
+        Inter: ["Inter", "sans-serif"],
       },
       colors: {
+        "primary-50": "#EFF8FF",
         "primary-600": "#1570EF",
       },
     },
