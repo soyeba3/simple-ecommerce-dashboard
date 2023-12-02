@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+import Pagination from "../components/Pagination";
 import ProductCard from "../components/products/ProductCard";
 import ProductsHeader from "../components/products/ProductsHeader";
 
@@ -26,12 +27,13 @@ function Home() {
           {error}
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-4 py-4">
           {data?.map((item) => (
             <ProductCard key={item.id} item={item} />
           ))}
         </div>
       )}
+      <Pagination />
     </div>
   );
 }
