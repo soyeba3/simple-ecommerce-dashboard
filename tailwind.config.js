@@ -10,6 +10,7 @@ export default {
       colors: {
         "primary-50": "#EFF8FF",
         "primary-600": "#1570EF",
+        "negative-600": "#E50000"
       },
     },
   },
