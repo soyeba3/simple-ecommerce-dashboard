@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import Pagination from "../components/Pagination";
 import ProductCard from "../components/products/ProductCard";
 import ProductsHeader from "../components/products/ProductsHeader";
+import CardSkeleton from "../components/skeleton/CardSkeleton";
 
 function Home() {
   const { isLoading, data, error } = useQuery({
@@ -28,9 +29,11 @@ function Home() {
         </div>
       ) : (
         <div className="grid grid-cols-3 gap-4 py-4">
-          {data?.map((item) => (
-            <ProductCard key={item.id} item={item} />
-          ))}
+          {isLoading
+            ? Array(6)
+                .fill(1)
+                .map((_, index) => <CardSkeleton />)
+            : data?.map((item) => <ProductCard key={item.id} item={item} />)}
         </div>
       )}
       <Pagination />
