@@ -5,7 +5,7 @@ function Button({
   size = "medium",
   children = "Button",
   type = "button",
-  className: extraClassName = "",
+  extraClassName = "",
   onClick = () => {},
   onSubmit = () => {},
 }) {

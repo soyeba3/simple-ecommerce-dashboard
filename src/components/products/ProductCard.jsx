@@ -1,7 +1,13 @@
 import { AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineStarPurple500 } from "react-icons/md";
+import Modal from "../modal/Modal";
 
-function ProductCard({ item = {} }) {
+function ProductCard({
+  item = {},
+  deletePost = () => {},
+  isOpen,
+  setIsOpen = () => {},
+}) {
   const title = item.title.substring(0, 36);
   const rate = Math.floor(item.rating.rate);
   const withoutRate = 5 - rate;
@@ -39,7 +45,10 @@ function ProductCard({ item = {} }) {
               </div>
             </div>
           </div>
-          <div className="p-2 border border-gray-300 rounded-md cursor-pointer">
+          <div
+            onClick={() => setIsOpen((prev) => !prev)}
+            className="p-2 border border-gray-300 rounded-md cursor-pointer"
+          >
             <AiOutlineDelete className="w-6 h-6 text-negative-600" />
           </div>
         </div>
@@ -49,6 +58,7 @@ function ProductCard({ item = {} }) {
           </h2>
         </div>
       </div>
+      <Modal id={item.id} isOpen={isOpen} setIsOpen={setIsOpen} deletePost={deletePost} />
     </div>
   );
 }

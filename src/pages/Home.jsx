@@ -1,11 +1,16 @@
-import { useQuery } from "react-query";
-import Pagination from "../components/Pagination";
+import { useState } from "react";
+import { useMutation, useQuery } from "react-query";
+import Pagination from "../components/pagination/Pagination";
 import ProductCard from "../components/products/ProductCard";
 import ProductsHeader from "../components/products/ProductsHeader";
 import CardSkeleton from "../components/skeleton/CardSkeleton";
 
 function Home() {
-  const { isLoading, data, error } = useQuery({
+  const [products, setProducts] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Fetching product data from fakestoreapi.com with a limit of 6
+  const { isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
       fetch("https://fakestoreapi.com/products?limit=6")
@@ -15,9 +20,23 @@ function Home() {
           }
           return res.json();
         })
+        .then((data) => setProducts(data))
         .catch((err) => {
           throw err;
         }),
+  });
+
+  //Delete a Product
+  const deletePost = useMutation((id) => {
+    return fetch(`https://fakestoreapi.com/products/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then(() => {
+        const filteredProducts = products.filter((item) => item.id !== id);
+        setProducts(filteredProducts);
+        setIsOpen(false);
+      });
   });
 
   return (
@@ -32,8 +51,16 @@ function Home() {
           {isLoading
             ? Array(6)
                 .fill(1)
-                .map((_, index) => <CardSkeleton />)
-            : data?.map((item) => <ProductCard key={item.id} item={item} />)}
+                .map((_, index) => <CardSkeleton key={index} />)
+            : products?.map((item) => (
+                <ProductCard
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                  deletePost={deletePost}
+                  key={item.id}
+                  item={item}
+                />
+              ))}
         </div>
       )}
       <Pagination />
