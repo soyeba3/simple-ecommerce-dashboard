@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { FiUploadCloud } from "react-icons/fi";
 import { useMutation } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/buttons/Button";
 import image from "/images/Jacket.png";
 
@@ -24,8 +24,7 @@ function CreateProduct() {
         body: JSON.stringify({ ...value, image: "https://i.pravatar.cc" }),
       })
         .then((res) => res.json())
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           navigate("/products");
         });
     },
@@ -44,9 +43,11 @@ function CreateProduct() {
             </p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" size="small">
-              Cancel
-            </Button>
+            <Link to="/products">
+              <Button variant="outline" size="small">
+                Cancel
+              </Button>
+            </Link>
             <Button type="submit" variant="primary" size="small">
               Create
             </Button>

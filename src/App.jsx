@@ -2,6 +2,7 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/sidebar/Sidebar";
 import CreateProduct from "./pages/CreateProduct";
 import Home from "./pages/Home";
+import UpdateProduct from "./pages/UpdateProduct";
 
 function App() {
   const Layout = ({ children }) => (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/billing" element={<Home />} />
         <Route path="/company" element={<Home />} />
         <Route path="/products/create" element={<CreateProduct />} />
+        <Route path="/product/:id" element={<UpdateProduct />} />
       </Route>
     </Routes>
   );

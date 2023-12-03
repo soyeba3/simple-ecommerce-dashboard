@@ -10,7 +10,7 @@ function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
   // Fetching product data from fakestoreapi.com with a limit of 6
-  const { isLoading, error } = useQuery({
+  const { isLoading, isFetching, error } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
       fetch("https://fakestoreapi.com/products?limit=6")
@@ -48,7 +48,7 @@ function Home() {
         </div>
       ) : (
         <div className="grid grid-cols-3 gap-4 py-4">
-          {isLoading
+          {isLoading || isFetching
             ? Array(6)
                 .fill(1)
                 .map((_, index) => <CardSkeleton key={index} />)
