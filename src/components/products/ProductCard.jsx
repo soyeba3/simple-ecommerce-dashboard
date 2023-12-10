@@ -62,7 +62,7 @@ function ProductCard({
         </div>
       </div>
       <Modal
-        id={item.id}
+        item={item}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         deletePost={deletePost}

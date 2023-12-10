@@ -18,12 +18,9 @@ function Home() {
   } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
-      fetch("https://fakestoreapi.com/products?limit=6")
-        .then((res) => res.json())
-        .then((productsData) => {
-          // setProducts(productsData);
-          return productsData;
-        }),
+      fetch("https://fakestoreapi.com/products?limit=6").then((res) =>
+        res.json()
+      ),
   });
 
   useEffect(() => {
@@ -33,16 +30,18 @@ function Home() {
   }, [queryData]);
 
   //Delete a Product
-  const deletePost = useMutation((id) => {
-    return fetch(`https://fakestoreapi.com/products/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then(() => {
-        const filteredProducts = products.filter((item) => item.id !== id);
-        setProducts(filteredProducts);
-        setIsOpen(false);
-      });
+  const deletePost = useMutation({
+    mutationFn: async (id) => {
+      return await fetch(`https://fakestoreapi.com/products/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then(() => {
+          const filteredProducts = products.filter((item) => item.id !== id);
+          setProducts(filteredProducts);
+          setIsOpen(false);
+        });
+    },
   });
 
   return (

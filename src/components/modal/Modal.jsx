@@ -2,7 +2,7 @@ import React from "react";
 import { RxCross2 } from "react-icons/rx";
 import Button from "../buttons/Button";
 
-function Modal({ isOpen, setIsOpen, deletePost = () => {}, id }) {
+function Modal({ isOpen, setIsOpen, deletePost = () => {}, item = {} }) {
   const closeModal = () => {
     setIsOpen(false);
   };
@@ -38,7 +38,9 @@ function Modal({ isOpen, setIsOpen, deletePost = () => {}, id }) {
                   Cancel
                 </Button>
                 <Button
-                  onClick={() => deletePost.mutate(id)}
+                  onClick={() => {
+                    deletePost.mutate(item?.id);
+                  }}
                   extraClassName="w-full bg-negative-600"
                 >
                   Delete
