@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiUploadCloud } from "react-icons/fi";
-import { useMutation, useQuery } from "react-query";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "../components/buttons/Button";
 
@@ -16,21 +17,19 @@ function UpdateProduct() {
   } = useForm();
 
   // Fetching a single product data from fakestoreapi.com
-  const { isLoading, error } = useQuery({
-    queryKey: ["products"],
+  const { data: queryData } = useQuery({
+    queryKey: ["product"],
     queryFn: () =>
-      fetch(`https://fakestoreapi.com/products/${id}`)
-        .then((res) => {
-          if (!res.ok) {
-            throw "Something went wrong!";
-          }
-          return res.json();
-        })
-        .then((data) => setProduct(data))
-        .catch((err) => {
-          throw err;
-        }),
+      fetch(`https://fakestoreapi.com/products/${id}`).then((res) =>
+        res.json()
+      ),
   });
+
+  useEffect(() => {
+    if (queryData) {
+      setProduct(queryData);
+    }
+  }, [queryData]);
 
   //Update a product
   const mutation = useMutation({
@@ -43,10 +42,7 @@ function UpdateProduct() {
         body: JSON.stringify({ ...value, image: product.image }),
       })
         .then((res) => res.json())
-        .then((res) => {
-          console.log(res);
-          navigate("/products");
-        });
+        .then(() => navigate("/products"));
     },
   });
 

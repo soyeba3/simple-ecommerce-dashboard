@@ -1,4 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom";
+import Hooks from "./components/hooks/Hooks";
 import Sidebar from "./components/sidebar/Sidebar";
 import CreateProduct from "./pages/CreateProduct";
 import Home from "./pages/Home";
@@ -26,6 +27,7 @@ function App() {
         <Route path="/products/create" element={<CreateProduct />} />
         <Route path="/product/:id" element={<UpdateProduct />} />
       </Route>
+      <Route path="/hooks" element={<Hooks />} />
     </Routes>
   );
 }

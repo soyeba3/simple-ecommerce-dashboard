@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useEffect, useState } from "react";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Pagination from "../components/pagination/Pagination";
 import ProductCard from "../components/products/ProductCard";
 import ProductsHeader from "../components/products/ProductsHeader";
@@ -10,21 +11,26 @@ function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
   // Fetching product data from fakestoreapi.com with a limit of 6
-  const { isLoading, isFetching, error } = useQuery({
+  const {
+    isPending,
+    error,
+    data: queryData,
+  } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
       fetch("https://fakestoreapi.com/products?limit=6")
-        .then((res) => {
-          if (!res.ok) {
-            throw "Something went wrong!";
-          }
-          return res.json();
-        })
-        .then((data) => setProducts(data))
-        .catch((err) => {
-          throw err;
+        .then((res) => res.json())
+        .then((productsData) => {
+          // setProducts(productsData);
+          return productsData;
         }),
   });
+
+  useEffect(() => {
+    if (queryData) {
+      setProducts(queryData);
+    }
+  }, [queryData]);
 
   //Delete a Product
   const deletePost = useMutation((id) => {
@@ -48,7 +54,7 @@ function Home() {
         </div>
       ) : (
         <div className="grid grid-cols-3 gap-4 py-4">
-          {isLoading || isFetching
+          {isPending
             ? Array(6)
                 .fill(1)
                 .map((_, index) => <CardSkeleton key={index} />)

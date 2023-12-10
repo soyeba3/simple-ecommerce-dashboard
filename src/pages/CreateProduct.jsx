@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { FiUploadCloud } from "react-icons/fi";
-import { useMutation } from "react-query";
+
+import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/buttons/Button";
 import image from "/images/Jacket.png";
