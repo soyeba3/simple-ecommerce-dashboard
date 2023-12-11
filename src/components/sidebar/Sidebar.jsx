@@ -21,7 +21,7 @@ function Sidebar({ children }) {
 
   return (
     <div className="flex min-h-screen font-Inter">
-      <div className="flex flex-col justify-between w-1/5 py-8 bg-white">
+      <div className="fixed flex flex-col justify-between py-5 bg-white w-72">
         <div className="flex flex-col gap-8">
           <Link to="/">
             <div className="flex items-center justify-center gap-2">
@@ -37,7 +37,7 @@ function Sidebar({ children }) {
             ))}
           </div>
         </div>
-        <div className="relative flex justify-center px-3 mt-10">
+        <div className="relative flex justify-center px-3 mt-8">
           <span className="absolute z-10 p-2 bg-white rounded-full shadow-2xl -top-7 shadow-gray-700">
             <BsFillQuestionCircleFill className="w-8 h-8 text-primary-600" />
           </span>
@@ -50,7 +50,7 @@ function Sidebar({ children }) {
           </div>
         </div>
       </div>
-      <div className="w-4/5 bg-gray-100">{children}</div>
+      <div className="w-full bg-gray-50 pl-72">{children}</div>
     </div>
   );
 }

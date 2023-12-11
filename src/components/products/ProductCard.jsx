@@ -14,7 +14,7 @@ function ProductCard({
   const withoutRate = 5 - rate;
 
   return (
-    <div className="flex flex-col bg-white border border-gray-300 rounded-md">
+    <div className="flex flex-col bg-white border border-gray-300 rounded-md shadow-sm">
       <Link to={`/product/${item.id}`}>
         <div className="flex justify-center p-10 border-b border-gray-200">
           <img className="h-44" src={item.image} alt="img" />
